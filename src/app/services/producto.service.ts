@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Producto } from '../models/producto';
 import { GLOBAL } from './global';
+import { Params } from '@angular/router';
 
 @Injectable()
 export class ProductoService{
@@ -18,4 +19,14 @@ export class ProductoService{
     getProductos(){
         return this._http.get(this.url+'productos').map(res => res.json());
     }
+
+    addProducto(producto: Producto){
+        let json = JSON.stringify(producto);
+        let params = 'json'+json;
+        let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
+
+        return this._http.post(this.url+'productos', params, {headers: headers})
+                         .map(res => res.json());
+    }
+
 }
