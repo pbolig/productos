@@ -1,7 +1,7 @@
 <h3>{{titulo}}</h3>
 <hr/>
 
-<form #formProductos="ngForm" (submit)="onSubmit()" class="col-lg-6" id="form-producto">
+<form #formProducto="ngForm" (ngSubmit)="onSubmit()" class="col-lg-6" id="form-producto">
 
     <label>
         Nombre
@@ -22,8 +22,11 @@
     <input type="text" #precio="ngModel" name="precio" [(ngModel)]="producto.precio" class="form-control" required pattern="[0-9]+" />
 
     <label>Imagen</label>
-    <input type="file" class="form-control" />
+    <div *ngIf="is_edit">
+        <img src="http://localhost/angular4-backend/uploads/{{producto.imagen}}" width="60" />
+    </div>
+    <input type="file" class="form-control" (change)="fileChangeEvent($event)" />
 
-    <br>
-    <input type="submit" value="{{titulo}}" [disabled]="!formProductos.form.valid" class="btn btn-success" />
+    <br/>
+    <input type="submit" value="{{titulo}}" [disabled]="!formProducto.form.valid" class="btn btn-success" />
 </form>
